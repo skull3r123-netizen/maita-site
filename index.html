@@ -2038,282 +2038,54 @@
 >
   
   <div class="form-inner-wrapper"  hidden>
-    <form
-       data-form-id="68fec299a6ef260db1354b87"
-       data-success-redirect=""
-       data-dynamic-strings
-       autocomplete="on"
-       
-       method="POST"
-       action="https://llama-tortoise-rxpr.squarespace.com"
-       novalidate
-       onsubmit="return (function (form) {
-  Y.use('squarespace-form-submit', 'node', function usingFormSubmit(Y) {
-    (new Y.Squarespace.FormSubmit(form)).submit({
-      formId: '68fec299a6ef260db1354b87',
-      collectionId: '68fec1fc7c58174e62056999',
-      objectName: '30c1699759b21cda6b14'
-    });
-  });
-  return false;
-})(this);"
-       
-    >
-      
-        <div class="field-list clear">
-
-        
-
-          
-
-          
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-              <fieldset id="name-yui_3_17_2_1_1679346524828_51496" class="form-item fields name required">
-                
-            <legend class="title">
-              Name
-              
-                <span class="required" aria-hidden="true">*</span>
-              
-            </legend>
-          
-                
-                <div class="field first-name">
-                  <label class="caption">
-                    <input
-                        class="field-element field-control"
-                        name="fname"
-                        x-autocompletetype="given-name"
-                        type="text"
-                        spellcheck="false"
-                        maxlength="30"
-                        data-title="First"
-                        aria-required="true"
-                    />
-                    <span class="caption-text">First Name</span>
-                  </label>
-                </div>
-                <div class="field last-name">
-                  <label class="caption">
-                    <input
-                        class="field-element field-control"
-                        name="lname"
-                        x-autocompletetype="surname"
-                        type="text"
-                        spellcheck="false"
-                        maxlength="30"
-                        data-title="Last"
-                        aria-required="true"
-                    />
-                    <span class="caption-text">Last Name</span>
-                  </label>
-                </div>
-              </fieldset>
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-        
-
-          
-
-          
-
-            
-
-            
-
-            
-
-            
-
-            
-              <div id="email-yui_3_17_2_1_1679348080814_63349" class="form-item field email required">
-                
-            <label class="title" for="email-yui_3_17_2_1_1679348080814_63349-field">
-              Email
-              
-                <span class="required" aria-hidden="true">*</span>
-              
-            </label>
-          
-                
-                <input
-                    class="field-element"
-                    id="email-yui_3_17_2_1_1679348080814_63349-field"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    spellcheck="false"
-                    
-                    aria-required="true"
-                />
-              </div>
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-        
-
-          
-
-          
-
-            
-
-            
-
-            
-
-            
-              <div id="textarea-yui_3_17_2_1_1679348080814_63351" class="form-item field textarea required">
-                
-            <label class="title" for="textarea-yui_3_17_2_1_1679348080814_63351-field">
-              Message
-              
-                <span class="required" aria-hidden="true">*</span>
-              
-            </label>
-          
-                
-                <textarea
-                    class="field-element "
-                    id="textarea-yui_3_17_2_1_1679348080814_63351-field"
-                    
-                    aria-required="true"
-                ></textarea>
-              </div>
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-        
-
-        </div>
-
-      
-
-      
-      <div class="captcha-container
-        align-left
-        
-        
-        "
-        data-theme="light"
-      ></div>
-      
-
-      
-      <div data-animation-role="button"
-        class="
-          form-button-wrapper
-          
-            form-button-wrapper--align-center
-          
-        "
-      >
-        <input
-          class="button sqs-system-button sqs-editable-button sqs-button-element--primary"
-          type="submit"
-          value="Send"
-          data-sqsp-button
-        />
+    <form action="https://formspree.io/f/xdkpkyyd" method="POST" class="sqs-site-style-form form-wrapper" novalidate>
+  <div class="form-inner-wrapper">
+    <div class="field-list clear">
+      <fieldset class="form-item fields name required">
+        <legend class="title">Name <span class="required" aria-hidden="true">*</span></legend>
+        <input type="text" name="name" class="field-element" autocomplete="name" required />
+      </fieldset>
+
+      <div class="form-item field email required">
+        <label class="title">Email <span class="required" aria-hidden="true">*</span></label>
+        <input type="email" name="email" class="field-element" autocomplete="email" required />
       </div>
-      
 
-      
-      <div class="hidden form-submission-text">Thank you!</div>
-      <div class="hidden form-submission-html" data-submission-html=""></div>
-    </form>
+      <div class="form-item field textarea required">
+        <label class="title">Message <span class="required" aria-hidden="true">*</span></label>
+        <textarea name="message" class="field-element" required></textarea>
+      </div>
+    </div>
+
+    <div class="form-button-wrapper">
+      <button type="submit" class="button sqs-system-button sqs-editable-button sqs-button-element--primary">Send</button>
+    </div>
+
+    <!-- Optional helpers -->
+    <input type="hidden" name="_subject" value="New message from maita.ai" />
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+  </div>
+</form>
+
+<script>
+// Keep user on-page and show a simple success/failure alert
+(function() { 
+  function wire(form) { 
+    form.addEventListener('submit', function (e) { 
+      e.preventDefault();
+      var data = new FormData(form);
+      fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function (r) { 
+        if (r.ok) { alert('Thank you! We\'ll be in touch.'); form.reset(); }
+        else { alert('Sorry, something went wrong. Please email hello@maita.ai.'); }
+      }).catch(function () { alert('Network error. Please email hello@maita.ai.'); });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () { 
+    document.querySelectorAll('form[action="https://formspree.io/f/xdkpkyyd"]').forEach(wire);
+  });
+})();
+</script>
   </div>
 </div>
 </div></div></div></div></div>
