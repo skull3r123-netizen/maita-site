@@ -2062,22 +2062,18 @@
   <div class="form-inner-wrapper"  hidden>
     <form action="https://api.web3forms.com/submit" method="POST" class="sqs-site-style-form form-wrapper" novalidate>
   <div class="form-inner-wrapper">
-    <input type="hidden" name="access_key" value="4ea1aa06-4edb-47f3-8e10-9e9f9c620a0f"/>
+    <input type="hidden" name="access_key" value="4ea1aa06-4edb-47f3-8e10-9e9f9c620a0f">
     <div class="field-list clear">
       <div class="form-item field">
-        <label class="title">First Name</label>
-        <input type="text" name="first_name" class="field-element" required />
-      </div>
-      <div class="form-item field">
-        <label class="title">Last Name</label>
-        <input type="text" name="last_name" class="field-element" required />
+        <label class="title">Name</label>
+        <input type="text" name="name" class="field-element" autocomplete="name" required>
       </div>
       <div class="form-item field email required">
-        <label class="title">Email <span class="required" aria-hidden="true">*</span></label>
-        <input type="email" name="email" class="field-element" required />
+        <label class="title">Email</label>
+        <input type="email" name="email" class="field-element" autocomplete="email" required>
       </div>
       <div class="form-item field textarea required">
-        <label class="title">Message <span class="required" aria-hidden="true">*</span></label>
+        <label class="title">Message</label>
         <textarea name="message" class="field-element" required></textarea>
       </div>
     </div>
@@ -2087,6 +2083,29 @@
     <div class="form-status" aria-live="polite" style="margin-top:0.75rem;"></div>
   </div>
 </form>
+<script>
+(function(){
+  function wire(form){
+    var status = form.querySelector('.form-status');
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      status.textContent = "Sending…";
+      var data = new FormData(form);
+      fetch(form.action, {method:"POST", body:data, headers:{"Accept":"application/json"}})
+        .then(async function(r){
+          var json = null; try{ json = await r.json(); }catch(e){}
+          if(r.ok && json && json.success){ status.textContent = "✅ Thank you! Message sent."; form.reset(); }
+          else{ status.textContent = (json && json.message) ? json.message : "Sorry, the submission failed. Please email hello@maita.ai instead."; }
+        })
+        .catch(function(){ status.textContent = "Network error. Please email hello@maita.ai instead."; });
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll('form[action="https://api.web3forms.com/submit"]').forEach(wire);
+  });
+})();
+</script>
+
 
 <script>
 (function () {
