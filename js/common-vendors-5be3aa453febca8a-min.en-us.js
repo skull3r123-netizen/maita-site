@@ -1,3 +1,59 @@
+/*! Maita cleanup shim: block legacy Squarespace form submits; keep animations & UI intact */
+(function(){
+  try {
+    // Neuter Squarespace form wiring if present
+    if (window.Squarespace) {
+      try { Squarespace.FormSubmit = function(){}; } catch(e){}
+      try { Squarespace.initializeForm = function(){}; } catch(e){}
+    }
+    // Block 'sendBeacon' to /api/form/FormSubmissionKey
+    try {
+      var _origBeacon = (navigator && navigator.sendBeacon) ? navigator.sendBeacon.bind(navigator) : null;
+      if (_origBeacon) {
+        navigator.sendBeacon = function(url, data) {
+          try {
+            if (typeof url === 'string' && url.indexOf('/api/form/FormSubmissionKey') > -1) return false;
+          } catch(e){}
+          return _origBeacon(url, data);
+        };
+      }
+    } catch(e){}
+    // Block fetch calls to /api/form/FormSubmissionKey
+    try {
+      var _origFetch = window.fetch;
+      if (_origFetch) {
+        window.fetch = function(url, opts) {
+          try {
+            var u = (typeof url === 'string') ? url : (url && url.url) || '';
+            if (u && u.indexOf('/api/form/FormSubmissionKey') > -1) {
+              return Promise.resolve(new Response('{"blocked":true}', {
+                status: 204,
+                headers: { 'Content-Type': 'application/json' }
+              }));
+            }
+          } catch(e){}
+          return _origFetch.apply(this, arguments);
+        };
+      }
+    } catch(e){}
+    // Block XMLHttpRequest to /api/form/FormSubmissionKey
+    try {
+      var _XHR = window.XMLHttpRequest;
+      if (_XHR) {
+        var _open = _XHR.prototype.open, _send = _XHR.prototype.send;
+        _XHR.prototype.open = function(method, url) {
+          try { this.__maita_block__ = (typeof url === 'string' && url.indexOf('/api/form/FormSubmissionKey') > -1); } catch(e){ this.__maita_block__ = false; }
+          return _open.apply(this, arguments);
+        };
+        _XHR.prototype.send = function(body) {
+          if (this.__maita_block__) { try { this.abort(); } catch(e){} return; }
+          return _send.apply(this, arguments);
+        };
+      }
+    } catch(e){}
+  } catch(e){}
+})();
+
 /*! Maita: Squarespace form pipeline blocker (keeps animations & UI) */
 (function(){
   try {
