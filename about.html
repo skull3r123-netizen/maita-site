@@ -1547,8 +1547,9 @@
 >
   
   <div class="form-inner-wrapper"  hidden>
-    <form action="https://formspree.io/f/xdkpkyyd" method="POST" class="sqs-site-style-form form-wrapper" novalidate>
+    <form action="https://api.web3forms.com/submit" method="POST" class="sqs-site-style-form form-wrapper" novalidate>
   <div class="form-inner-wrapper">
+    <input type="hidden" name="access_key" value="4ea1aa06-4edb-47f3-8e10-9e9f9c620a0f"/>
     <div class="field-list clear">
       <fieldset class="form-item fields name required">
         <legend class="title">Name <span class="required" aria-hidden="true">*</span></legend>
@@ -1569,32 +1570,41 @@
     <div class="form-button-wrapper">
       <button type="submit" class="button sqs-system-button sqs-editable-button sqs-button-element--primary">Send</button>
     </div>
-
-    <!-- Optional helpers -->
-    <input type="hidden" name="_subject" value="New message from maita.ai" />
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+    <div class="form-status" aria-live="polite" style="margin-top:0.75rem;"></div>
   </div>
 </form>
 
 <script>
-// Keep user on-page and show a simple success/failure alert
-(function() { 
-  function wire(form) { 
-    form.addEventListener('submit', function (e) { 
+(function () {
+  function wire(form) {
+    var status = form.querySelector('.form-status');
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
+      status.textContent = 'Sending…';
       var data = new FormData(form);
       fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-      .then(function (r) { 
-        if (r.ok) { alert('Thank you! We\'ll be in touch.'); form.reset(); }
-        else { alert('Sorry, something went wrong. Please email hello@maita.ai.'); }
-      }).catch(function () { alert('Network error. Please email hello@maita.ai.'); });
+      .then(async function (r) {
+        var json = null;
+        try { json = await r.json(); } catch (e) {}
+        if (r.ok && json && json.success) {
+          status.textContent = '✅ Thank you! Message sent.';
+          form.reset();
+        } else {
+          var msg = (json && json.message) ? json.message : 'Sorry, the submission failed. Please email hello@maita.ai instead.';
+          status.textContent = msg;
+        }
+      })
+      .catch(function () {
+        status.textContent = 'Network error. Please email hello@maita.ai instead.';
+      });
     });
   }
-  document.addEventListener('DOMContentLoaded', function () { 
-    document.querySelectorAll('form[action="https://formspree.io/f/xdkpkyyd"]').forEach(wire);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form[action="https://api.web3forms.com/submit"]').forEach(wire);
   });
 })();
 </script>
+
   </div>
 </div>
 </div></div></div></div></div>
